@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Trello' do
-  describe 'Cards' do 
+  describe 'Cards' do
     it 'can list cards' do
 
       service_instance = service_instance('trello_cards')
