@@ -1,33 +1,39 @@
 require 'spec_helper'
 
-describe 'Trello' do
-  describe 'Cards' do
-    it 'can list cards' do
+describe 'Trello API' do
+  describe 'Board' do
+    it 'finds specific board' do
 
       api_key = ENV['TRELLO_API_KEY']
-      token = ENV['TRELLO_AUTH_TOKEN']
+      auth_token = ENV['TRELLO_AUTH_TOKEN']
 
       service_instance = service_instance('trello_cards')
 
-      received_payload = false
-      service_instance.callback = proc do |action_response|
-        if action_response[:payload]
-          received_payload = true
-        end
+      params = { 'board_link_id' => board_link_id }
+
+      service_instance.test_action('findBoard', params) do
+        expect_info message: 'Initializing connection to Trello.'
+        expect_return
       end
+    end
+  end
+
+  describe 'List' do
+    it 'can create a list' do
+
+      api_key = ENV['TRELLO_API_KEY']
+      auth_token = ENV['TRELLO_AUTH_TOKEN']
+
+      service_instance = service_instance('trello_cards')
 
       params = {
-        'api_key' => api_key,
-        'token' => token,
+        'board_id' => board_id,
+        'name' => name
       }
 
-      service_instance.call_action('list', params) do
+      service_instance.test_action('createList', params) do
+        expect_info message: 'Initializing connection to Trello.'
         expect_return
-        expect_info message: "Getting list of cards..."
-      end
-
-      eventually timeout: 10 do
-        received_payload
       end
     end
   end

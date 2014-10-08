@@ -1,22 +1,37 @@
 require 'factor-connector-api'
-require 'rest_client'
+require 'trello'
+
 
 Factor::Connector.service 'trello_cards' do
   action 'list' do |params|
-    info 'Getting list of cards'
 
+
+    user_id = params['user']
+    list_id = params['list']
     api_key = params['api_key']
-    token = params['token']
-
-    fail 'API Key required' unless api_key
-    fail 'User token required' unless token
+    auth_token = params['auth_token']
 
     begin
-      list_of_cards = Trello::API.cards.all
+      Trello.configure do |config|
+        config.developer_public_key = api_key
+        config.member_token = auth_token
+      end
     rescue
-      fail "Authentication failed"
+      fail 'Authentication invalid'
     end
 
-    action_callback list_of_cards
+
+
+    cards = if user_id
+      member = Trello::Member.find(user_id)
+      member.cards
+    elsif list_id
+      list = Trello::List.find(list_id)
+      list.cards
+    else
+      fail "You must specify a User or List ID"
+    end
+
+    action_callback cards
   end
 end
