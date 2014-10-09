@@ -15,15 +15,17 @@ _____________________________________________________
 
 ----------BOARD----------
 
-board = Trello::Board.find('123') # url id or standard id
-
-board_members = board.members
+board = Trello::Board.find('123')
 
 ----------MEMBER----------
 
 member = Trello::Member.find('123')
 
-member_cards = member.cards
+board_members = board.members
+
+card.remove_member(member)
+
+card.add_member(member)
 
 ----------LIST----------
 
@@ -39,6 +41,8 @@ new_list.delete
 
 cards = list.cards
 
+member_cards = member.cards
+
 found_card = Trello::Card.find('123')
 
 new_card = Trello::Card.create(list_id: '123')
@@ -48,8 +52,4 @@ closed_card = found_card.close
 moved_card = card.move_to_list('123')
 
 moved_card.delete
-
-card.add_member(member) # must be object
-
-card.remove_member(member)
 _____________________________________________________

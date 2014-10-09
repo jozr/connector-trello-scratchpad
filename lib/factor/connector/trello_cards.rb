@@ -21,7 +21,6 @@ Factor::Connector.service 'trello_cards' do
     end
 
 
-
     cards = if user_id
       member = Trello::Member.find(user_id)
       member.cards
