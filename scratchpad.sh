@@ -1,6 +1,3 @@
-TRELLO_API_KEY = fd405a36484256f6aa654c0801120c48
-TRELLO_AUTH_TOKEN = f97c7e28eac5d16f3ae2e63851986a68f99935eb53e3286daca547929f8bbfc8
-
 Trello.configure do |config|
   config.developer_public_key = ENV['TRELLO_API_KEY']
   config.member_token = ENV['TRELLO_AUTH_TOKEN']
