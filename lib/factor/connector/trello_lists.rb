@@ -1,5 +1,5 @@
 require 'factor-connector-api'
-require 'trello'
+require 'ruby-trello'
 
 Trello.configure do |config|
   config.developer_public_key = ENV['TRELLO_API_KEY']
@@ -11,12 +11,14 @@ Factor::Connector.service 'trello_lists' do
 
     board_id = params['board_id']
     name = params['name']
+    api_key = params['api_key']
+    auth_token = params['auth_token']
 
     fail 'Board identification is required' unless board_id
     fail 'A board name is required' unless name
 
     content = {
-      board_id: board.id,
+      board_id: board_id,
       name: name
     }
 

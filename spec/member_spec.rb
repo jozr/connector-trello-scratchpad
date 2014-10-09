@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Member' do
+describe 'trello_members' do
   it 'finds specific member' do
 
     api_key = ENV['TRELLO_API_KEY']

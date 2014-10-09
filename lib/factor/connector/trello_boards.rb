@@ -1,5 +1,5 @@
 require 'factor-connector-api'
-require 'trello'
+require 'ruby-trello'
 
 Trello.configure do |config|
   config.developer_public_key = ENV['TRELLO_API_KEY']

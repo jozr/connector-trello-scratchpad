@@ -1,5 +1,5 @@
 require 'factor-connector-api'
-require 'trello'
+require 'ruby-trello'
 
 
 Factor::Connector.service 'trello_cards' do
