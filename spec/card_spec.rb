@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe 'Trello API' do
   describe 'Card' do
     it 'can create a card' do

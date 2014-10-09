@@ -8,7 +8,9 @@ describe 'Member' do
 
     service_instance = service_instance('trello_cards')
 
-    params = { 'member_id' => member_id }
+    params = {
+      'member_id' => member_id,
+      'board_id' => board_id }
 
     service_instance.test_action('findMember', params) do
       expect_info message: 'Initializing connection to Trello.'

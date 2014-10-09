@@ -1,7 +1,20 @@
-Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_API_KEY']
-  config.member_token = ENV['TRELLO_AUTH_TOKEN']
+begin
+  Trello.configure do |config|
+    config.developer_public_key = ENV['TRELLO_API_KEY']
+    config.member_token = ENV['TRELLO_AUTH_TOKEN']
+  end
+rescue
+  fail 'Authentication invalid'
 end
+
+    if defined? member_id
+      Trello::Member.find(member_id)
+    elsif defined? board_id
+      Trello::Board.find(board_id)
+      board.members
+    else
+      fail "You must specify a User ID"
+    end
 
 received_payload = false
 service_instance.callback = proc do |action_response|
@@ -15,17 +28,17 @@ _____________________________________________________
 
 ----------BOARD----------
 
-board = Trello::Board.find('123')
+# board = Trello::Board.find('123')
 
 ----------MEMBER----------
 
-member = Trello::Member.find('123')
+# member = Trello::Member.find('123')
 
-board_members = board.members
+# board_members = board.members
 
-card.remove_member(member)
+card.add_member(member) #two arguments needed
 
-card.add_member(member)
+card.remove_member(member) #two arguments needed
 
 ----------LIST----------
 
