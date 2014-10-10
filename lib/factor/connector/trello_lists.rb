@@ -7,6 +7,17 @@ Trello.configure do |config|
 end
 
 Factor::Connector.service 'trello_lists' do
+  action 'find_list'
+
+    board_id = params['list_id']
+    api_key = params['api_key']
+    auth_token = params['auth_token']
+
+    fail
+
+
+  end
+
   action 'create' do |params|
 
     board_id = params['board_id']
