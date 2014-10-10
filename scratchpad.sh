@@ -36,9 +36,9 @@ _____________________________________________________
 
 # board_members = board.members
 
-card.add_member(member) #two arguments needed
+# card.add_member(member) #two arguments needed
 
-card.remove_member(member) #two arguments needed
+# card.remove_member(member) #two arguments needed
 
 ----------LIST----------
 
