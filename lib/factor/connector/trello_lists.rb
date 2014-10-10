@@ -1,24 +1,36 @@
 require 'factor-connector-api'
 require 'ruby-trello'
 
-Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_API_KEY']
-  config.member_token = ENV['TRELLO_AUTH_TOKEN']
-end
-
 Factor::Connector.service 'trello_lists' do
   action 'find_list'
 
-    board_id = params['list_id']
+    list_id = params['list_id']
     api_key = params['api_key']
     auth_token = params['auth_token']
 
-    fail
+    fail 'List ID is required' unless list_id
 
+    info 'Initializing connection to Trello'
+    begin
+      Trello.configure do |config|
+        config.developer_public_key = api_key
+        config.member_token = auth_token
+      end
+    rescue
+      fail 'Authentication invalid'
+    end
 
+    info 'Retrieving list'
+    begin
+      list = Trello::List.find(list_id)
+    rescue
+      'Failed to retrieve list'
+    end
+
+    action_callback list
   end
 
-  action 'create' do |params|
+  action 'create_list' do |params|
 
     board_id = params['board_id']
     name = params['name']
@@ -35,11 +47,48 @@ Factor::Connector.service 'trello_lists' do
 
     info 'Initializing connection to Trello'
     begin
+      Trello.configure do |config|
+        config.developer_public_key = api_key
+        config.member_token = auth_token
+      end
+    rescue
+      fail 'Authentication invalid'
+    end
+
+    info 'Creating new list'
+    begin
       list = Trello::List.create(content)
     rescue
-      fail 'Authentication failed'
+      'Failed to create list'
     end
 
     action_callback list
+  end
+
+  action 'delete_list'
+
+    list_id = params['list_id']
+    api_key = params['api_key']
+    auth_token = params['auth_token']
+
+    fail 'List ID is required' unless list_id
+
+    info 'Initializing connection to Trello'
+    begin
+      Trello.configure do |config|
+        config.developer_public_key = ENV['TRELLO_API_KEY']
+        config.member_token = ENV['TRELLO_AUTH_TOKEN']
+    end
+    rescue
+      fail 'Authentication invalid'
+    end
+
+    info 'Deleting list'
+    begin
+      Trello::List.find(list_id)
+      list.delete
+    rescue
+      'Failed to delete list'
+    end
   end
 end

@@ -44,11 +44,11 @@ _____________________________________________________
 
 lists = board.lists
 
-found_list = Trello::List.find('123')
+# found_list = Trello::List.find('123')
 
 # new_list = Trello::List.create(board_id: '123', name: 'Foo')
 
-new_list.delete
+# new_list.delete
 
 ----------CARD----------
 
