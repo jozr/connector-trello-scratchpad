@@ -8,11 +8,14 @@ describe 'trello_lists' do
 
     service_instance = service_instance('trello_cards')
 
-    params = { 'list_id' => list_id }
+    params = {
+      'list_id' => list_id,
+      'board_id' => board_id
+    }
 
     service_instance.test_action('find_list', params) do
       expect_info message: 'Initializing connection to Trello'
-      expect_info message: 'Retrieving list'
+      expect_info message: 'Retrieving list information'
       expect_return
     end
   end

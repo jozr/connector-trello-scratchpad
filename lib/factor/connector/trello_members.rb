@@ -21,14 +21,14 @@ Factor::Connector.service 'trello_members' do
       fail 'Authentication invalid'
     end
 
-    info 'Retrieving member(s) information'
+    info 'Retrieving member information'
     if defined? member_id
       action_callback Trello::Member.find(member_id)
     elsif defined? board_id
       Trello::Board.find(board_id)
       action_callback board.members
     else
-      fail "Failed to retrieve member(s) information"
+      fail "Failed to retrieve member information"
     end
   end
 

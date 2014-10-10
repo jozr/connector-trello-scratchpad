@@ -5,10 +5,11 @@ Factor::Connector.service 'trello_lists' do
   action 'find_list'
 
     list_id = params['list_id']
+    board_id = params['board_id']
     api_key = params['api_key']
     auth_token = params['auth_token']
 
-    fail 'List ID is required' unless list_id
+    fail 'List ID or board ID is required' unless list_id || board_id
 
     info 'Initializing connection to Trello'
     begin
@@ -20,14 +21,15 @@ Factor::Connector.service 'trello_lists' do
       fail 'Authentication invalid'
     end
 
-    info 'Retrieving list'
-    begin
-      list = Trello::List.find(list_id)
-    rescue
-      'Failed to retrieve list'
+    info 'Retrieving list information'
+    if defined? list_id
+      action_callback Trello::list.find(list_id)
+    elsif defined? board_id
+      Trello::Board.find(board_id)
+      action_callback board.lists
+    else
+      fail "Failed to retrieve list information"
     end
-
-    action_callback list
   end
 
   action 'create_list' do |params|

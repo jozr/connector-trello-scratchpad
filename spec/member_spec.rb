@@ -15,7 +15,7 @@ describe 'trello_members' do
 
     service_instance.test_action('find_member', params) do
       expect_infro message: 'Initializing connection to Trello'
-      expect_info message: 'Retrieving member(s) information'
+      expect_info message: 'Retrieving member information'
       expect_return
     end
   end
