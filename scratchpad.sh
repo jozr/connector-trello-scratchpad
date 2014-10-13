@@ -42,7 +42,7 @@ _____________________________________________________
 
 ----------LIST----------
 
-lists = board.lists
+# lists = board.lists
 
 # found_list = Trello::List.find('123')
 
@@ -52,9 +52,9 @@ lists = board.lists
 
 ----------CARD----------
 
-cards = list.cards
+# cards = list.cards
 
-member_cards = member.cards
+# member_cards = member.cards
 
 found_card = Trello::Card.find('123')
 
