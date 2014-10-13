@@ -56,13 +56,11 @@ _____________________________________________________
 
 # member_cards = member.cards
 
-found_card = Trello::Card.find('123')
+# found_card = Trello::Card.find('123')
 
-new_card = Trello::Card.create(list_id: '123')
+# new_card = Trello::Card.create(list_id: '123', name: 'Bar')
 
-closed_card = found_card.close
+## closed_card = found_card.close
 
-moved_card = card.move_to_list('123')
-
-moved_card.delete
+## moved_card = card.move_to_list('123')
 _____________________________________________________
